@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: {{ .Values.global.dev }}
+  name: {{ .Values.deployments.develop.backend.name }}-deployment
+  labels:
+    app: {{ .Values.deployments.develop.backend.appLabel }}
+
+spec:
+  replicas: {{ .Values.deployments.develop.backend.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Values.deployments.develop.backend.appLabel }}
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.deployments.develop.backend.appLabel }}
+
+    spec:
+      containers:
+      - name: {{ .Values.deployments.develop.backend.containerName }}
+        image: {{ .Values.deployments.develop.backend.image.repository }}:{{ .Values.deployments.develop.backend.image.tag }}
+        ports:
+        - containerPort: {{ .Values.deployments.develop.backend.containerPort }}
+        resources:
+          requests:
+            memory: {{ .Values.deployments.develop.backend.resources.requests.memory }}
+            cpu: {{ .Values.deployments.develop.backend.resources.requests.cpu }}
+          limits:
+            memory: {{ .Values.deployments.develop.backend.resources.limits.memory }}
+            cpu: {{ .Values.deployments.develop.backend.resources.limits.cpu }}
+        env:
+          - name: DEBUG
+            valueFrom:
+              configMapKeyRef:
+                name: tms-project-dev-config
+                key: DEBUG_MODE

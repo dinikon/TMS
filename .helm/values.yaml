@@ -1,0 +1,50 @@
+# Default values for .helm.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+global:
+  prod: tms-project
+  dev: tms-project-dev
+
+deployments:
+  prod:
+    backend:
+      name: tms-backend
+      appLabel: tms-backend-app
+      containerName: tms-backend-container
+      containerPort: 8000
+      replicaCount: 2
+      config:
+        # Bool значения указывать "True"
+        debug: "False"
+      image:
+        repository: dinikon/tms-backend
+        tag: v0.0.13
+      resources:
+        requests:
+          memory: "64Mi"
+          cpu: "250m"
+        limits:
+          memory: "128Mi"
+          cpu: "500m"
+
+  develop:
+    backend:
+      name: tms-backend-dev
+      appLabel: tms-backend-app-dev
+      containerName: tms-backend-container-dev
+      containerPort: 8000
+      replicaCount: 2
+      config:
+        # Bool значения указывать "True"
+        debug: "True"
+      image:
+        repository: dinikon/tms-backend
+        tag: v0.0.13
+      resources:
+        requests:
+          memory: "64Mi"
+          cpu: "250m"
+        limits:
+          memory: "128Mi"
+          cpu: "500m"
