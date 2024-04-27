@@ -1,12 +1,8 @@
 name: Docker Build, Publish and Deploy to prod
 
 on:
-  create:
-    tags:
-      - 'v*'
-  push:
-    branches:
-      - main
+  release:
+    types: [published]
 
 jobs:
   Buid:
