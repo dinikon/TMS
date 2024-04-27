@@ -2,10 +2,10 @@ name: Docker Build, Publish and Deploy to prod
 
 on:
   push:
-    branches:
-      - main
     tags:
       - 'v*'
+    branches:
+      - main
 
 jobs:
   Buid:
