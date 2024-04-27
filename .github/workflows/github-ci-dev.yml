@@ -33,7 +33,7 @@ jobs:
       - name: Publish Docker Image
         run: |
           docker push ghcr.io/${{ github.repository_owner }}/tms-backend:${{ github.ref_name }}
-          docker push ghcr.io/${{ github.repository_owner }}/tms-backend:latest
+#          docker push ghcr.io/${{ github.repository_owner }}/tms-backend:latest
 
 #  deploy:
 #    name: Deploy to k3s Cluster
