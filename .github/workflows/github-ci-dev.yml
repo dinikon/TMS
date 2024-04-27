@@ -25,15 +25,15 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build Docker Image
-        run: docker build -t ghcr.io/${{ github.repository_owner }}/tms-backend-dev:${{ github.ref_name }} -f docker/base/Dockerfile .
+        run: docker build -t ghcr.io/${{ github.repository_owner }}/tms-backend:${{ github.ref_name }} -f docker/base/Dockerfile .
 
       - name: Tag Docker Image as latest
-        run: docker tag ghcr.io/${{ github.repository_owner }}/tms-backend-dev:${{ github.ref_name }} ghcr.io/${{ github.repository_owner }}/tms-backend-dev:latest
+        run: docker tag ghcr.io/${{ github.repository_owner }}/tms-backend:${{ github.ref_name }} ghcr.io/${{ github.repository_owner }}/tms-backend-dev:latest
 
       - name: Publish Docker Image
         run: |
-          docker push ghcr.io/${{ github.repository_owner }}/tms-backend-dev:${{ github.ref_name }}
-          docker push ghcr.io/${{ github.repository_owner }}/tms-backend-dev:latest
+          docker push ghcr.io/${{ github.repository_owner }}/tms-backend:${{ github.ref_name }}
+          docker push ghcr.io/${{ github.repository_owner }}/tms-backend:latest
 
 #  deploy:
 #    name: Deploy to k3s Cluster
