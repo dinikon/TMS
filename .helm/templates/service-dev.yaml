@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: {{ .Values.global.dev.namespace }}
+  name: {{ .Values.global.dev.defaultName }}-service
+  labels:
+    app: {{ .Values.global.dev.appLabel }}
+spec:
+  type: ClusterIP  # Default and suitable for intra-cluster communication
+  ports:
+    - port: {{ .Values.service.dev.servicePort }}
+      targetPort: {{ .Values.deployments.dev.backend.containerPort }}
+      protocol: TCP
+  selector:
+    app: {{ .Values.global.dev.appLabel }}

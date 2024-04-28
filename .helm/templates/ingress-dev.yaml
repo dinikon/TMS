@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: acrm-app-ingress
+  namespace: {{ .Values.global.dev.namespace }}
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    kubernetes.io/ingress.class: "nginx"
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+spec:
+  rules:
+  - host: dev.swlcrm.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: {{ .Values.global.dev.defaultName }}-service
+            port:
+              number: {{ .Values.service.dev.servicePort }}
+  tls:
+  - hosts:
+    - dev.swlcrm.com
+    secretName: swlcrm-app-tls
