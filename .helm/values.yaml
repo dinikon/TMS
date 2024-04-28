@@ -21,9 +21,10 @@ deployments:
       config:
         # Bool значения указывать "True"
         debug: "False"
+        originHost: "api.swlcrm.com"
       image:
-        repository: dinikon/tms-backend
-        tag: v0.0.13
+        repository: ghcr.io/dinikon/tms-backend
+        tag: latest
       resources:
         requests:
           memory: "128Mi"
@@ -40,9 +41,10 @@ deployments:
       config:
         # Bool значения указывать "True"
         debug: "True"
+        originHost: "api.swlcrm.com"
       image:
-        repository: dinikon/tms-backend
-        tag: v0.0.13
+        repository: ghcr.io/dinikon/tms-backend
+        tag: develop
       resources:
         requests:
           memory: "128Mi"
