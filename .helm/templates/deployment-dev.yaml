@@ -1,16 +1,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  namespace: {{ .Values.global.dev }}
-  name: {{ .Values.deployments.develop.backend.name }}-deployment
+  namespace: {{ .Values.global.dev.namespace }}
+  name: {{ .Values.global.dev.defaultName }}-deployment
   labels:
-    app: {{ .Values.deployments.develop.backend.appLabel }}
+    app: {{ .Values.global.dev.appLabel }}
 
 spec:
-  replicas: {{ .Values.deployments.develop.backend.replicaCount }}
+  replicas: {{ .Values.deployments.dev.backend.replicaCount }}
   selector:
     matchLabels:
-      app: {{ .Values.deployments.develop.backend.appLabel }}
+      app: {{ .Values.global.dev.appLabel }}
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -20,24 +20,24 @@ spec:
   template:
     metadata:
       labels:
-        app: {{ .Values.deployments.develop.backend.appLabel }}
+        app: {{ .Values.global.dev.appLabel }}
 
     spec:
       containers:
-      - name: {{ .Values.deployments.develop.backend.containerName }}
-        image: {{ .Values.deployments.develop.backend.image.repository }}:{{ .Values.deployments.develop.backend.image.tag }}
+      - name: {{ .Values.deployments.dev.backend.containerName }}
+        image: {{ .Values.deployments.dev.backend.image.repository }}:{{ .Values.deployments.dev.backend.image.tag }}
         ports:
-        - containerPort: {{ .Values.deployments.develop.backend.containerPort }}
+        - containerPort: {{ .Values.deployments.dev.backend.containerPort }}
         resources:
           requests:
-            memory: {{ .Values.deployments.develop.backend.resources.requests.memory }}
-            cpu: {{ .Values.deployments.develop.backend.resources.requests.cpu }}
+            memory: {{ .Values.deployments.dev.backend.resources.requests.memory }}
+            cpu: {{ .Values.deployments.dev.backend.resources.requests.cpu }}
           limits:
-            memory: {{ .Values.deployments.develop.backend.resources.limits.memory }}
-            cpu: {{ .Values.deployments.develop.backend.resources.limits.cpu }}
+            memory: {{ .Values.deployments.dev.backend.resources.limits.memory }}
+            cpu: {{ .Values.deployments.dev.backend.resources.limits.cpu }}
         env:
           - name: DEBUG
             valueFrom:
               configMapKeyRef:
-                name: tms-project-dev-config
+                name: {{ .Values.global.dev.defaultName }}-config
                 key: DEBUG_MODE

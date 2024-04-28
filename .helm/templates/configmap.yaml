@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: tms-project-config
-  namespace: {{ .Values.global.prod }}
+  namespace: {{ .Values.global.prod.namespace }}
+  name: {{ .Values.global.prod.defaultName }}-config
 data:
   DEBUG_MODE: "{{ .Values.deployments.prod.backend.config.debug }}"

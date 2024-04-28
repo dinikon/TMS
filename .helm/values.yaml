@@ -3,14 +3,18 @@
 # Declare variables to be passed into your templates.
 
 global:
-  prod: tms-project
-  dev: tms-project-dev
+  prod:
+    namespace: tms-project
+    defaultName: tms-backend
+    appLabel: tms-backend-app
+  dev:
+    namespace: tms-project-dev
+    defaultName: tms-backend-dev
+    appLabel: tms-backend-app-dev
 
 deployments:
   prod:
     backend:
-      name: tms-backend
-      appLabel: tms-backend-app
       containerName: tms-backend-container
       containerPort: 8000
       replicaCount: 2
@@ -22,16 +26,14 @@ deployments:
         tag: v0.0.13
       resources:
         requests:
-          memory: "64Mi"
-          cpu: "250m"
-        limits:
           memory: "128Mi"
-          cpu: "500m"
+          cpu: "50m"
+        limits:
+          memory: "512Mi"
+          cpu: "100m"
 
-  develop:
+  dev:
     backend:
-      name: tms-backend-dev
-      appLabel: tms-backend-app-dev
       containerName: tms-backend-container-dev
       containerPort: 8000
       replicaCount: 2
@@ -43,8 +45,15 @@ deployments:
         tag: v0.0.13
       resources:
         requests:
-          memory: "64Mi"
-          cpu: "250m"
-        limits:
           memory: "128Mi"
-          cpu: "500m"
+          cpu: "50m"
+        limits:
+          memory: "512Mi"
+          cpu: "100m"
+
+service:
+  prod:
+    servicePort: 8000
+  dev:
+    servicePort: 8000
+

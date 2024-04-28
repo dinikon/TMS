@@ -1,16 +1,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  namespace: {{ .Values.global.prod }}
-  name: {{ .Values.deployments.prod.backend.name }}-deployment
+  namespace: {{ .Values.global.prod.namespace }}
+  name: {{ .Values.global.prod.defaultName }}-deployment
   labels:
-    app: {{ .Values.deployments.prod.backend.appLabel }}
+    app: {{ .Values.global.prod.appLabel }}
 
 spec:
   replicas: {{ .Values.deployments.prod.backend.replicaCount }}
   selector:
     matchLabels:
-      app: {{ .Values.deployments.prod.backend.appLabel }}
+      app: {{ .Values.global.prod.appLabel }}
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -20,7 +20,7 @@ spec:
   template:
     metadata:
       labels:
-        app: {{ .Values.deployments.prod.backend.appLabel }}
+        app: {{ .Values.global.prod.appLabel }}
     spec:
       containers:
       - name: {{ .Values.deployments.prod.backend.containerName }}
@@ -38,5 +38,5 @@ spec:
           - name: DEBUG
             valueFrom:
               configMapKeyRef:
-                name: tms-project-config
+                name: {{ .Values.global.prod.defaultName }}-config
                 key: DEBUG_MODE
