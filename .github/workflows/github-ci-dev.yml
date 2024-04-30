@@ -65,7 +65,6 @@ jobs:
           export KUBECONFIG=$(pwd)/kubeconfig.yml
           kubectl get pods
 
-
       - name: Deploy Helm chart
         run: kubectl get pods
 
