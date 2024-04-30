@@ -34,7 +34,7 @@ jobs:
         run: |
           docker push ghcr.io/${{ github.repository_owner }}/tms-backend:${{ github.sha }}
 
-  build-and-publish:
+  deploy-and-update:
     needs: build-and-publish
     runs-on: ubuntu-latest
     steps:
