@@ -60,6 +60,11 @@ jobs:
         run: |
           cat $(pwd)/kubeconfig.yml
 
+      - name: Deploy Helm chart
+        run: |
+          export KUBECONFIG=$(pwd)/kubeconfig.yml
+          kubectl get pods
+
 
       - name: Deploy Helm chart
         run: kubectl get pods
