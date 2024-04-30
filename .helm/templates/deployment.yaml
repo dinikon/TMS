@@ -21,6 +21,7 @@ spec:
     metadata:
       labels:
         app: {{ .Values.global.prod.appLabel }}
+
     spec:
       containers:
       - name: {{ .Values.deployments.prod.backend.containerName }}
