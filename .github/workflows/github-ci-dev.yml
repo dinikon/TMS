@@ -55,6 +55,9 @@ jobs:
           echo "${{ secrets.KUBECONFIG }}" > kubeconfig.yml
           echo "KUBECONFIG=$(pwd)/kubeconfig.yml" >> $GITHUB_ENV
 
+      - name: Deploy Helm chart
+        run: kubectl get pods
+
 #  deploy-and-update:
 #    needs: build-and-publish
 #    runs-on: ubuntu-latest
