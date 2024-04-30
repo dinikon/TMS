@@ -56,17 +56,13 @@ jobs:
           echo "${{ secrets.KUBECONFIG }}" > kubeconfig.yml
           echo "KUBECONFIG=$(pwd)/kubeconfig.yml" >> $GITHUB_ENV
 
-      - name: Output Kubeconfig
-        run: |
-          cat $(pwd)/kubeconfig.yml
+      - name: Set up Helm
+        uses: azure/setup-helm@v1
+        with:
+          version: 'latest'
 
       - name: Deploy Helm chart
-        run: |
-          export KUBECONFIG=$(pwd)/kubeconfig.yml
-          kubectl get pods
-
-      - name: Deploy Helm chart
-        run: kubectl get pods
+        run: helm upgrade --install tms .helm --set deployments.prod.backend.image.tag=${{ github.sha }}
 
 #  deploy-and-update:
 #    needs: build-and-publish
