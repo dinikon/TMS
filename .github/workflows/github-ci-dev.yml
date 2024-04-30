@@ -34,6 +34,32 @@ jobs:
         run: |
           docker push ghcr.io/${{ github.repository_owner }}/tms-backend:${{ github.sha }}
 
+  deploy-and-update:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+        submodules: 'recursive'
+
+    - name: Set up Kubernetes
+      uses: azure/setup-kubectl@v1
+      with:
+        version: 'latest'
+
+    - name: Set up Helm
+      uses: azure/setup-helm@v1
+      with:
+        version: 'latest'
+    - name: Configure K3s Cluster Access
+      run: |
+        echo "${{ secrets.KUBECONFIG }}" > kubeconfig.yml
+        echo "KUBECONFIG=$(pwd)/kubeconfig.yml" >> $GITHUB_ENV
+
+    - name: Deploy Helm chart
+      run: helm upgrade --install tms .helm --set deployments.prod.backend.image.tag=${{ github.sha }}
+
 #  deploy:
 #    name: Deploy to k3s Cluster
 #    needs: build-and-publish
