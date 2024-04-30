@@ -70,6 +70,12 @@ jobs:
       - name: List Helm releases
         run: helm list
 
+      - name: List Helm releases
+        run: kubectl cluster-info
+
+      - name: List Helm releases
+        run: helm upgrade --install tms .helm --set deployments.prod.backend.image.tag=9eaa7d326b6102431e0fc11d577a90bb459ac9ba --debug
+
       - name: Deploy Helm chart
         run: helm upgrade --install tms .helm --set deployments.prod.backend.image.tag=${{ github.sha }}
 
