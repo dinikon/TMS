@@ -61,6 +61,15 @@ jobs:
         with:
           version: 'latest'
 
+      - name: Check Helm version
+        run: helm version
+
+      - name: List Helm releases
+        run: helm list --all-namespaces
+
+      - name: List Helm releases
+        run: helm list
+
       - name: Deploy Helm chart
         run: helm upgrade --install tms .helm --set deployments.prod.backend.image.tag=${{ github.sha }}
 
