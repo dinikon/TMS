@@ -32,7 +32,6 @@ jobs:
 
       - name: Publish Docker Image
         run: |
-          docker push ghcr.io/${{ github.repository_owner }}/tms-backend:${{ github.ref_name }}
           docker push ghcr.io/${{ github.repository_owner }}/tms-backend:${{ github.sha }}
 
 #  deploy:
