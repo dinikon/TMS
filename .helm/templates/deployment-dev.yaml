@@ -41,13 +41,3 @@ spec:
               configMapKeyRef:
                 name: {{ .Values.global.dev.defaultName }}-config
                 key: DEBUG_MODE
-          - name: POSTGRES_USER
-            valueFrom:
-              secretKeyRef:
-                name: postgres-secret
-                key: username
-          - name: POSTGRES_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                name: postgres-secret
-                key: password
