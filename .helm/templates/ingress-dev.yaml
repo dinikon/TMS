@@ -9,7 +9,7 @@ metadata:
     cert-manager.io/cluster-issuer: "letsencrypt-prod"
 spec:
   rules:
-  - host: dev.swlcrm.com
+  - host: devapi.acrm.app
     http:
       paths:
       - path: /
@@ -19,7 +19,8 @@ spec:
             name: {{ .Values.global.dev.defaultName }}-service
             port:
               number: {{ .Values.service.dev.servicePort }}
+
   tls:
   - hosts:
-    - dev.swlcrm.com
+    - devapi.acrm.app
     secretName: swlcrm-app-tls
