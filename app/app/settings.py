@@ -80,6 +80,17 @@ DATABASES = {
     }
 }
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': POSTGRES_DWH_CRMDB_DB,
+#         'USER': POSTGRES_DWH_CRMDB_USER,
+#         'PASSWORD': POSTGRES_DWH_CRMDB_PASSWORD,
+#         'HOST': POSTGRES_DWH_HOSTNAME,
+#         'PORT': DATABASE_DWH_PORT,
+#     },
+# }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
