@@ -50,7 +50,6 @@ jobs:
         with:
           version: 'latest'
 
-
       - name: Configure K3s Cluster Access
         run: |
           echo "${{ secrets.KUBECONFIG }}" > kubeconfig.yml
@@ -61,23 +60,8 @@ jobs:
         with:
           version: 'v3.14.0'
 
-      - name: Check Helm version
-        run: helm version
-
-      - name: List Helm releases
-        run: helm list --all-namespaces
-
-      - name: List Helm releases
-        run: helm list
-
-      - name: List Helm releases
-        run: kubectl cluster-info
-
-      - name: List Helm releases
-        run: helm upgrade --install tms .helm --set deployments.prod.backend.image.tag=9eaa7d326b6102431e0fc11d577a90bb459ac9ba --debug
-
       - name: Deploy Helm chart
-        run: helm upgrade --install tms .helm --set deployments.prod.backend.image.tag=${{ github.sha }}
+        run: helm upgrade --install tms .helm --set deployments.dev.backend.image.tag=${{ github.sha }}
 
 #  deploy-and-update:
 #    needs: build-and-publish
