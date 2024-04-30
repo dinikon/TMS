@@ -45,9 +45,9 @@ jobs:
           docker push ghcr.io/${{ github.repository_owner }}/tms-backend:${{ env.IMAGE_TAG }}
           docker push ghcr.io/${{ github.repository_owner }}/tms-backend:latest
 
-  deploy:
+  Deploy:
     name: Deploy to k3s Cluster
-    needs: build-and-publish
+    needs: Buid
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
