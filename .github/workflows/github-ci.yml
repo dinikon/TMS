@@ -72,4 +72,4 @@ jobs:
           version: 'v3.14.0'
 
       - name: Deploy Helm chart
-        run: helm upgrade --install tms .helm --set deployments.prod.backend.image.tag=${{ env.IMAGE_TAG }}
+        run: helm upgrade --install tms .helm --set deployments.prod.backend.image.tag="${{ env.IMAGE_TAG }}"
