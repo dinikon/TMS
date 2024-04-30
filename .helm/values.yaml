@@ -37,7 +37,7 @@ deployments:
     backend:
       containerName: tms-backend-container-dev
       containerPort: 8000
-      replicaCount: 2
+      replicaCount: 5
       config:
         # Bool значения указывать "True"
         debug: "True"
