@@ -1,0 +1,43 @@
+
+services:
+  nginx:
+    build:
+      context: .
+      dockerfile: docker/nginx/Dockerfile
+    container_name: Nginx
+    volumes:
+      - static_volume:/home/app/static
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - backend
+
+  backend:
+    build:
+      context: .
+      dockerfile: docker/base/Dockerfile
+    container_name: DjangoDRF
+    command: gunicorn --bind 0.0.0.0:8000 app.asgi:application -k uvicorn.workers.UvicornWorker
+    environment:
+      POSTGRES_HOST: database
+    env_file:
+      - .env/.env.develop
+    volumes:
+      - .:/usr/src/app
+      - static_volume:/root/app/tms-app/static
+    depends_on:
+      - database
+
+  database:
+    image: postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+
+volumes:
+  postgres_data:
+  static_volume:
